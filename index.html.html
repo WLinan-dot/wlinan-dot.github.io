@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>William Liñan León — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F4F0;
+    --surface: #FFFFFF;
+    --ink: #111110;
+    --ink2: #444441;
+    --ink3: #888780;
+    --line: #D3D1C7;
+    --accent: #1D9E75;
+    --accent2: #0F6E56;
+    --accent-light: #E1F5EE;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --grid: 24px;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { max-width: 100%; padding: 20mm 18mm; }
+    .no-print { display: none; }
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 48px 72px;
+    background: var(--surface);
+    position: relative;
+  }
+
+  /* ── GRID LINES background ── */
+  .page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: var(--grid) var(--grid);
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page > * { position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1.5px solid var(--ink);
+    margin-bottom: 32px;
+  }
+
+  .header-name {
+    font-family: var(--mono);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+
+  .header-name span {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .header-meta {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink3);
+    line-height: 2;
+  }
+
+  .header-meta a {
+    color: var(--accent2);
+    text-decoration: none;
+  }
+
+  .tag-line {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.65;
+    max-width: 620px;
+    font-weight: 300;
+    border-left: 2.5px solid var(--accent);
+    padding-left: 14px;
+    margin-bottom: 40px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* ── SKILLS GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .skill-block {
+    border: 1px solid var(--line);
+    padding: 14px 16px;
+    position: relative;
+  }
+
+  .skill-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+  }
+
+  .skill-block-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 8px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--accent2);
+    background: var(--accent-light);
+    padding: 3px 8px;
+  }
+
+  .skill-tag.gray {
+    color: var(--ink2);
+    background: #F1EFE8;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0 24px;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .exp-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .exp-left {
+    padding-top: 2px;
+  }
+
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink3);
+    line-height: 1.6;
+  }
+
+  .exp-badge {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border: 1px solid var(--accent);
+    color: var(--accent2);
+  }
+
+  .exp-badge.key {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+    letter-spacing: 0.3px;
+  }
+
+  .exp-role {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+
+  .exp-location {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink3);
+    margin-bottom: 12px;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .exp-bullets li {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--ink2);
+    line-height: 1.6;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 15px;
+    line-height: 1.4;
+    font-family: var(--mono);
+  }
+
+  .exp-stack {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .exp-stack span {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink3);
+    background: #F1EFE8;
+    padding: 2px 7px;
+    border: 1px solid var(--line);
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-left-width: 3px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--accent2);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .highlight-box strong {
+    font-weight: 500;
+  }
+
+  /* ── CERTS ── */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .cert-item {
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+  }
+
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 5px;
+  }
+
+  .cert-name {
+    font-size: 12.5px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .cert-year {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink3);
+    margin-top: 4px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1.5px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink3);
+  }
+
+  .footer-ref {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent2);
+  }
+
+  /* ── CORNER MARKS ── */
+  .corner-mark {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-color: var(--accent);
+    border-style: solid;
+  }
+  .corner-mark.tl { top: 20px; left: 20px; border-width: 1.5px 0 0 1.5px; }
+  .corner-mark.tr { top: 20px; right: 20px; border-width: 1.5px 1.5px 0 0; }
+  .corner-mark.bl { bottom: 20px; left: 20px; border-width: 0 0 1.5px 1.5px; }
+  .corner-mark.br { bottom: 20px; right: 20px; border-width: 0 1.5px 1.5px 0; }
+
+  /* ── SPYBEE CALLOUT ── */
+  .spybee-fit {
+    background: var(--ink);
+    color: white;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fit-item {
+    padding-left: 14px;
+    border-left: 2px solid var(--accent);
+  }
+
+  .fit-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .fit-value {
+    font-size: 12px;
+    font-weight: 300;
+    color: #E1F5EE;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Corner registration marks -->
+  <div class="corner-mark tl"></div>
+  <div class="corner-mark tr"></div>
+  <div class="corner-mark bl"></div>
+  <div class="corner-mark br"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <div class="header-name">
+        William Liñan León
+        <span>Growth · Automatización · Customer Success</span>
+      </div>
+    </div>
+    <div class="header-meta">
+      Bogotá D.C., Colombia<br>
+      +57 323 226 2172<br>
+      <a href="mailto:williamlinanleon@gmail.com">williamlinanleon@gmail.com</a><br>
+      <a href="https://linkedin.com/in/william-liñan-l/">linkedin.com/in/william-liñan-l</a>
+    </div>
+  </header>
+
+  <!-- TAGLINE -->
+  <p class="tag-line">
+    Especialista en growth y automatización comercial con trayectoria en startups tech del sector construcción en LATAM. Diseño flujos con Make, implemento IA generativa (Claude, ChatGPT) en procesos comerciales reales, y acompaño ciclos completos de venta B2B desde prospección hasta conversión y expansión de cuenta.
+  </p>
+
+  <!-- FIT PARA SPYBEE -->
+  <div class="spybee-fit">
+    <div class="fit-item">
+      <div class="fit-label">Sector constructor</div>
+      <div class="fit-value">Construex · Hippo Build · TXF Ingeniería — 3 experiencias directas</div>
+    </div>
+    <div class="fit-item">
+      <div class="fit-label">Stack requerido</div>
+      <div class="fit-value">Claude · Make · ChatGPT · HubSpot · WhatsApp API — uso cotidiano real</div>
+    </div>
+    <div class="fit-item">
+      <div class="fit-label">Perfil</div>
+      <div class="fit-value">SDR → Account Manager → Growth — ciclo completo de ingresos</div>
+    </div>
+  </div>
+
+  <!-- HABILIDADES TÉCNICAS -->
+  <section class="section">
+    <div class="section-label">Stack técnico</div>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <div class="skill-block-title">Automatización</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Make / Integromat</span>
+          <span class="skill-tag">Gemini AI</span>
+          <span class="skill-tag">Claude</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">IA Generativa</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Claude AI</span>
+          <span class="skill-tag">ChatGPT</span>
+          <span class="skill-tag">Gemini</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">CRM & Ventas</div>
+        <div class="skill-tags">
+          <span class="skill-tag">HubSpot ★</span>
+          <span class="skill-tag gray">Zoho</span>
+          <span class="skill-tag gray">Odoo</span>
+          <span class="skill-tag gray">Apollo</span>
+          <span class="skill-tag gray">PhantomBuster</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">Digital & Contenido</div>
+        <div class="skill-tags">
+          <span class="skill-tag gray">Meta Ads</span>
+          <span class="skill-tag gray">Google Workspace</span>
+          <span class="skill-tag gray">Photoshop</span>
+          <span class="skill-tag gray">Illustrator</span>
+          <span class="skill-tag gray">Dreamina Seedance 2.0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCIA LABORAL -->
+  <section class="section">
+    <div class="section-label">Experiencia relevante</div>
+
+    <!-- TXF -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-date">Mar 2026<br>May 2026</div>
+        <div class="exp-badge key">Más reciente</div>
+      </div>
+      <div>
+        <div class="exp-company">TXF Ingeniería S.A.S.</div>
+        <div class="exp-role">Especialista de Growth y Automatización · Analista Comercial</div>
+        <div class="exp-location">Bogotá, Colombia · Presencial</div>
+        <ul class="exp-bullets">
+          <li>Diseñé e implementé el funnel comercial completo: generación de leads, nurturing automatizado por WhatsApp y email, seguimiento y cierre para servicios de ingeniería y cursos técnicos.</li>
+          <li>Implementé Claude AI como herramienta central del proceso: generación de contenido, propuestas comerciales, scripts de venta y materiales de capacitación — flujo de trabajo análogo al requerido en Spybee.</li>
+          <li>Construí flujos de automatización en Make para captura, clasificación y distribución de leads a Google Sheets y CRM, reduciendo trabajo manual en el equipo comercial.</li>
+          <li>Diseñé el repositorio de conocimiento interno de la empresa: documentación semanal de estrategias, procesos y aprendizajes comerciales.</li>
+          <li>Gestión de redes sociales con enfoque en demanda, restructuración del esquema comercial y administración del CRM. Reporte directo a dirección.</li>
+          <li>Lideré la reestructuración del sitio web corporativo con enfoque en SEO técnico y GEO (Generative Engine Optimization), posicionando la marca para búsquedas orgánicas y visibilidad en motores de IA.</li>
+        </ul>
+        <div class="exp-stack">
+          <span>Claude AI</span><span>Make</span><span>HubSpot</span><span>WhatsApp API</span><span>Meta Ads</span><span>SEO/GEO</span><span>Google Workspace</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSTRUEX -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-date">Sep 2023<br>Feb 2024</div>
+        <div class="exp-badge">ConstrTech</div>
+      </div>
+      <div>
+        <div class="exp-company">Construex</div>
+        <div class="exp-role">Sales Development Representative LATAM</div>
+        <div class="exp-location">Bogotá · Remoto — Colombia, México, LATAM</div>
+        <ul class="exp-bullets">
+          <li>Prospección y calificación de leads B2B en el sector constructor para mercados de Colombia, México y LATAM — modelo de negocio directamente paralelo al de Spybee.</li>
+          <li>Gestión del pipeline comercial en CRM con reporte diario de indicadores de gestión y tasa de conversión.</li>
+          <li>Construex fue nombrada por Cemex Ventures como una de las mejores compañías de tecnología para la construcción del mundo.</li>
+        </ul>
+        <div class="exp-stack">
+          <span>CRM</span><span>Prospección B2B</span><span>LATAM</span><span>Sector construcción</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HIPPO BUILD -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-date">Mar 2023<br>May 2023</div>
+        <div class="exp-badge">YC W22</div>
+      </div>
+      <div>
+        <div class="exp-company">Hippo Build (YC W22)</div>
+        <div class="exp-role">Ejecutivo Comercial KAM</div>
+        <div class="exp-location">Bogotá · Híbrido</div>
+        <ul class="exp-bullets">
+          <li>Apertura de mercado y captación de cuentas clave (Key Account Management) en startup de digitalización para el sector constructor, respaldada por Y Combinator.</li>
+          <li>Venta consultiva para expansión de servicios de plataforma digital: onboarding de nuevos clientes y desarrollo de verticales de negocio.</li>
+          <li>Negociación con proveedores y aliados estratégicos. Prospección B2B presencial y remota.</li>
+        </ul>
+        <div class="exp-stack">
+          <span>KAM</span><span>Venta consultiva</span><span>Sector constructor</span><span>Startup</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREADOR DE CONTENIDO AI -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-date">Ene 2025<br>Feb 2026</div>
+        <div class="exp-badge">IA</div>
+      </div>
+      <div>
+        <div class="exp-company">WilliamLinan_AI — Independiente</div>
+        <div class="exp-role">Creador de Contenido con Inteligencia Artificial</div>
+        <div class="exp-location">Bogotá · Remoto</div>
+        <ul class="exp-bullets">
+          <li>Producción de contenido digital de alto impacto para agencias, emprendedores y marcas usando herramientas de IA creativa — combinando narrativa visual con automatización de producción.</li>
+          <li>Exploración y adopción temprana de herramientas como Claude, ChatGPT, Lovable y Notion AI aplicadas a flujos de trabajo reales de marketing y ventas.</li>
+          <li>Colaboración con agencias y pymes para integrar IA generativa en su estrategia de contenido sin perder la voz de marca.</li>
+        </ul>
+        <div class="exp-stack">
+          <span>Claude</span><span>ChatGPT</span><span>Gemini</span><span>Dreamina Seedance 2.0</span><span>Contenido digital</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUL -->
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-date">Abr 2021<br>May 2022</div>
+        <div class="exp-badge">Unicornio</div>
+      </div>
+      <div>
+        <div class="exp-company">TUL</div>
+        <div class="exp-role">Asesor Hunter · Vertical Constructor</div>
+        <div class="exp-location">Bogotá, Colombia · Presencial / Campo</div>
+        <ul class="exp-bullets">
+          <li>Participé en la creación y lanzamiento de la nueva vertical TUL Constructor: identificación de mercado, definición de propuesta de valor y apertura de segmento en obras y constructoras.</li>
+          <li>Abordaje directo a directores de obra, contratistas y constructoras para la adopción de la app TUL como canal de compra digital de materiales de construcción (cemento, varilla, tubería, bloque).</li>
+          <li>Capacitación de clientes constructores en el uso de la plataforma y seguimiento de consumo por obra, generando fidelización y expansión de portafolio.</li>
+          <li>Cumplimiento de metas agresivas de captación y crecimiento en una startup que alcanzó estatus unicornio — experiencia directa en escalar adopción de tecnología en el sector constructor.</li>
+        </ul>
+        <div class="exp-stack">
+          <span>Sector constructor</span><span>Field Sales</span><span>Adopción de plataforma</span><span>Onboarding</span><span>Startup unicornio</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CERTIFICACIONES -->
+  <section class="section">
+    <div class="section-label">Educación y certificaciones</div>
+    <div class="certs-grid">
+      <div class="cert-item">
+        <div class="cert-issuer">HubSpot Academy</div>
+        <div class="cert-name">Software de Ventas y CRM</div>
+        <div class="cert-year">2024</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-issuer">Google</div>
+        <div class="cert-name">Marketing Digital y Comercio Electrónico</div>
+        <div class="cert-year">2024</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-issuer">Google</div>
+        <div class="cert-name">Diseño de Experiencia de Usuario (UX)</div>
+        <div class="cert-year">2024</div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-issuer">University of California</div>
+        <div class="cert-name">Resolución de Problemas y Toma de Decisiones</div>
+        <div class="cert-year">2024</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-note">CV generado · Mayo 2026 · Bogotá, Colombia</div>
+    <div class="footer-ref">Aplicando a: AI-Powered Customer Success · Spybee</div>
+  </footer>
+
+</div>
+</body>
+</html>
